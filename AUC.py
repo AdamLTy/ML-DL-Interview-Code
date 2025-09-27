@@ -1,18 +1,18 @@
 # AUC basic code
 def auc_basic(y_true, y_scores):
-    # 按预测概率降序排序
+    # Sort by prediction probability in descending order
     sorted_indices = sorted(
         range(len(y_scores)), key=lambda i: y_scores[i], reverse=True
     )
 
-    # 计算累积的TP和FP
+    # Calculate cumulative TP and FP
     tp_cumsum = 0
     fp_cumsum = 0
-    tpr_list = [0]  # TPR列表
-    fpr_list = [0]  # FPR列表
+    tpr_list = [0]  # TPR list
+    fpr_list = [0]  # FPR list
 
-    pos_count = sum(y_true)  # 正样本总数
-    neg_count = len(y_true) - pos_count  # 负样本总数
+    pos_count = sum(y_true)  # Total number of positive samples
+    neg_count = len(y_true) - pos_count  # Total number of negative samples
 
     if pos_count == len(y_true) or neg_count == len(y_true):
         return 0.5
@@ -28,7 +28,7 @@ def auc_basic(y_true, y_scores):
         tpr_list.append(tpr)
         fpr_list.append(fpr)
 
-    # 用梯形法则计算AUC
+    # Calculate AUC using trapezoidal rule
     auc = 0
     for i in range(1, len(fpr_list)):
         auc += (fpr_list[i] - fpr_list[i - 1]) * (tpr_list[i] + tpr_list[i - 1]) / 2
