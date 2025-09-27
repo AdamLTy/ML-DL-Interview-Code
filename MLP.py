@@ -21,6 +21,7 @@ class MLP(nn.Module):
     def forward(self, x):
         return self.network(x)
 
+
 # MLP with different hidden dimensions, ReLU activations and dropout
 class MLPVarHidden(nn.Module):
     def __init__(self, input_dim, hidden_dims, output_dim, dropout_prob=0.5):
